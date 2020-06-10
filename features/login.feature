@@ -1,32 +1,33 @@
 #language: pt
 
 Funcionalidade: Login
-    Para que eu possa gerenciar os filmes do catálogo Ninjaflix
-    Sendo um usuário previamente cadastrado
-    Posso acessar o sistema com o meu email e senha
-    
-    @login_ok
-    Cenario: Acesso
-        Quando faco login com "tony@stark.com" e "pwd123"
-        Entao devo ser autenticado
-        E devo ver "tony@stark.com" na area logada
+Para que eu possa gerenciar os filmes do catálogo Ninjaflix
+Sendo um usuário previamente cadastrado
+Posso acessar o sistema com o meu email e senha
 
-    Cenario: Senha invalida
-        Quando eu faco login com "tony@stark" e "1234"
-        Entao nao devo ser autenticado
-        E devo ver a mensagem de alerta "Usuário e/ou senha inválidos"
+@login_ok
+Cenario: Acesso
+Quando eu faço login com "tony@stark.com" e "123456"
+Então devo ser autenticado
+E devo ver "Tony Stark" na area logada
 
-    Cenario: usuario nao existe
-        Quando eu faco login com "lu@hotmail.com" e 'pwd123'
-        Entao nao devo ser autenticado
-        E devo ver a mensagme de alerta "Usuário e/ou senha inválidos"
+@login_invalid
+Cenario: Senha invalida
+Quando eu faço login com "tony@stark.com" e "abc2412"
+Então não devo ser autenticado
+E devo ver a mensagem de alerta "Usuário e/ou senha inválidos"
 
-    Cenario: Email nao informado
-        Quando eu faco login com "" e "grfds"
-        Entao nao devo ser autenticado
-        E devo ver a mensagem de alerta "Cadê o email?"
+Cenario: Usuario nao existe
+Quando eu faço login com "404@yahoo.com" e "123456"
+Então nao devo ser autenticado
+E devo ver a mensagem de alerta "Usuário e/ou senha inválidos"
 
-    Cenario: Senha nao informado
-        Quando eu faco login com "lu@hotmail.com" e ""
-        Entao nao devo ser autenticado
-        E devo ver a mensagem de alerta "Cadê a senha?"
+Cenario: Email não informado
+Quando eu faço login com "" e "abc123"
+Então não devo ser autenticado
+E devo ver a mensagem "Opps. Cadê o email?"
+
+Cenario: Senha não informada
+Quando eu faço login com "teste@gmail.com" e ""
+Então não devo ser autenticado
+E devo ver a mensagem "Opps. Cadê a senha?"

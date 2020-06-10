@@ -1,16 +1,33 @@
-Quando("faço login com {string} e {string}") do |email, password|
+Quando("eu faço login com {string} e {string}") do |email, password|
   visit "/"
-  find("#emailId").set email
-  find("#passId").set password
-  find click_button "Entrar"
-  sleep 3
+  find('#emailId').set email
+  find('#passId').set password
+  click_button "Entrar"
+  sleep 5
 end
-  
+
 Então("devo ser autenticado") do
-  js_script = 'window.localStorage.getItem("default_auth_token");'
+  js_script = 'return window.localStorage.getItem("default_auth_token");'
   token = page.execute_script(js_script)
-  puts token
+  expect(token.length).to be 147
+  sleep 5
 end
-Entao("devo ver {string} na area logada") do |string|
-  pending
+
+Então("devo ver {string} na área logada") do |expect_name|
+  user = find('.sidebar-wrapper .user .info span')
+  expect(user.text).to eql expect_name
+  sleep 5
+
+end
+
+Então("não devo ser autenticado") do
+  js_script = 'return window.localStorage.getItem("default_auth_token");'
+  token = page.execute_script(js_script)
+  expect(token).to be nil
+  sleep 5
+end
+
+Então("devo ver a mensagem de alerta {string}") do |expect_message|
+  alert = find(".alert")
+  expect(alert.text).to eql expect_message
 end
